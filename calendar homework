@@ -1,0 +1,58 @@
+package com.company;
+
+import com.toedter.calendar.JCalendar;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+public class CalendarCalc {
+    public static CalendarCalc g1;
+    static GregorianCalendar cal1 = new GregorianCalendar();
+    static GregorianCalendar cal2 = new GregorianCalendar();
+    static JCalendar j1 = new JCalendar();
+    static JCalendar j2 = new JCalendar();
+    JLabel diff = new JLabel();
+    JButton button = new JButton("Calculate");
+    JLabel lab = new JLabel("");
+    JFrame j = new JFrame();
+    JPanel p = new JPanel();
+
+    public CalendarCalc(){
+
+        p.add(j1);
+        p.add(j2);
+        p.add(button);
+        p.add(lab);
+        button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                calc();}
+        });
+
+        j.add(p);
+        j.setVisible(true);
+        j.setSize(750,500);
+        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public void calc(){
+        Date d1 = new Date();
+        d1 = j1.getDate();
+        cal1.setTime(d1);
+        Date d2 = new Date();
+        d2 = j2.getDate();
+        cal2.setTime(d2);
+
+        int year = cal2.get(1)- cal1.get(1);
+        int month = cal2.get(2) - cal1.get(2);
+        int days = cal2.get(6) - cal1.get(6);
+        lab.setText("The difference between the two dates are: "+year+" Years "+ month+" Months and "+days+ " days.");
+        p.updateUI();
+    }
+
+    public static void main(String[] args) {
+        g1 = new CalendarCalc();
+    }
+}
